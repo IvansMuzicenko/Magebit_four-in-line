@@ -1,0 +1,47 @@
+.page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.game__area {
+  width: 70vh;
+  height: 70vh;
+  background: black;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 3px;
+  border: 1px solid black;
+}
+.game__field {
+  background: white;
+  display: flex;
+  align-items: center;
+}
+.game__field:hover {
+  background: yellow;
+}
+.game__field p {
+  font-size: 5vh;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+}
+.game__reset {
+  padding: 10px;
+  background: yellowgreen;
+}
+
+.comb {
+  background: green;
+}/*# sourceMappingURL=style.css.map */

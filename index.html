@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page">
+      <div class="game">
+        <h1 class="game__results"></h1>
+        <h1>Player <span class="game__turn">1</span> turn</h1>
+        <div class="game__area">
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+          <div class="game__field"><p></p></div>
+        </div>
+
+        <button class="game__reset" onclick="reset()" type="reset">
+          Reset
+        </button>
+        <p>Player 1 (X) | Player 2 (O)</p>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  const fields = document.querySelectorAll(".game__field");
+  const results = document.querySelector(".game__results");
+  const turn = document.querySelector(".game__turn");
+  let player = 1;
+  let player1fields = [];
+  let player2fields = [];
+  let winner = 0;
+  let available_cells = [99, 98, 97, 96, 95, 94, 93, 92, 91, 90];
+
+  const winCombs = [];
+
+  for (let i = 0; i < 100; i += 10) {
+    for (let l = 0; l < 7; l++) {
+      let win = [];
+      for (let n = 0; n < 4; n++) {
+        win.push(i + l + n);
+      }
+      winCombs.push(win);
+    }
+  }
+  for (let i = 0; i < 100; i += 10) {
+    for (let l = 0; l < 7; l++) {
+      let win = [];
+      for (let n = 0; n < 40; n += 10) {
+        win.push(i + l + n);
+      }
+      winCombs.push(win);
+    }
+  }
+  for (let i = 0; i < 100; i += 10) {
+    for (let l = 0; l < 7; l++) {
+      let win = [];
+      for (let n = 0; n < 44; n += 11) {
+        win.push(i + l + n);
+      }
+      winCombs.push(win);
+    }
+  }
+  for (let i = 0; i < 100; i += 10) {
+    for (let l = 0; l < 7; l++) {
+      let win = [];
+      for (let n = 0; n < 36; n += 9) {
+        win.push(i + l + n);
+      }
+      winCombs.push(win);
+    }
+  }
+
+  const reset = function (evt) {
+    location.reload();
+  };
+  const change = function () {
+    if (player == 1) {
+      player = 2;
+    } else if (player == 2) {
+      player = 1;
+    }
+    turn.textContent = player;
+  };
+
+  const fill = function () {
+    if (player == 1) {
+      return "X";
+    } else if (player == 2) {
+      return "O";
+    } else return "";
+  };
+
+  const winCheck = function () {
+    if (player == 1) {
+      let counter = 0;
+      for (let comb of winCombs) {
+        counter = 0;
+        for (let value of comb) {
+          if (player1fields.includes(value)) {
+            counter++;
+          }
+          if (counter == 4) {
+            winComb = comb;
+            winner = 1;
+          }
+        }
+      }
+    } else if (player == 2) {
+      let counter = 0;
+      for (let comb of winCombs) {
+        counter = 0;
+        for (let value of comb) {
+          if (player2fields.includes(value)) {
+            counter++;
+          }
+          if (counter == 4) {
+            winComb = comb;
+            winner = 2;
+          }
+        }
+      }
+    }
+    if (winner > 0) {
+      results.innerText = "Winner is player " + winner;
+      player = 0;
+      for (let value of winComb) {
+        fields[value].classList.add("comb");
+      }
+    }
+  };
+
+  fields.forEach((el, index) => {
+    el.onclick = function (evt) {
+      if (!this.firstChild.innerText && available_cells.includes(index)) {
+        if (player == 1) {
+          player1fields.push(index);
+        } else if (player == 2) {
+          player2fields.push(index);
+        }
+        this.firstChild.innerText = fill();
+        available_cells.push(index - 10);
+
+        winCheck();
+        change();
+      }
+    };
+  });
+</script>
