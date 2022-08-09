@@ -168,7 +168,9 @@ fields.forEach((el, index) => {
         player2fields.push(index);
       }
       this.firstChild.innerText = fill();
-      available_cells.push(index - (index >= 10 ? 10 : 0));
+      if (index >= 10) {
+        available_cells.push(index - 10);
+      }
       available_cells.splice(available_cells.indexOf(index), 1);
 
       winCheck();
