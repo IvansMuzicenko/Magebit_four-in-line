@@ -131,8 +131,18 @@ const checkCombos = function () {
         counter++;
       }
     }
-    bestCombs.push({ cell: combIndex, rating: counter });
+    bestCombs.push({ index: combIndex, rating: counter });
   }
+  for (let comb of bestCombs) {
+    for (let blocked of player2fields) {
+      if (winCombs[comb.index].includes(blocked)) {
+        bestCombs = bestCombs.filter((el) => {
+          return el.index != comb.index;
+        });
+      }
+    }
+  }
+
   bestCombs.sort(function (a, b) {
     return b.rating - a.rating;
   });
@@ -141,7 +151,7 @@ const checkCombos = function () {
 const botDecision = function () {
   for (let comb of bestCombs) {
     for (let avail of available_cells) {
-      if (winCombs[comb.cell].includes(avail)) {
+      if (winCombs[comb.index].includes(avail)) {
         return fields[avail].click();
       }
     }
@@ -158,7 +168,7 @@ fields.forEach((el, index) => {
         player2fields.push(index);
       }
       this.firstChild.innerText = fill();
-      available_cells.push(index - 10);
+      available_cells.push(index - (index >= 10 ? 10 : 0));
       available_cells.splice(available_cells.indexOf(index), 1);
 
       winCheck();
