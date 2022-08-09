@@ -12,12 +12,24 @@ let bestCombs = [];
 
 const winCombs = [];
 
-const createCombs = function (stepDiff, diagStart = 0, diagEnd = 0) {
-  for (let y = 0; y <= 9 - diagEnd; y += 1) {
-    for (let x = 0 + diagStart; x < 7 + diagStart; x++) {
+const createCombs = function (stepDiff, diagStart = 0) {
+  let xlimit = 10;
+  let ylimit = 10;
+  if (stepDiff == 1) {
+    xlimit = 7;
+  } else if (stepDiff == 10) {
+    ylimit = 7;
+  } else if (stepDiff == 11) {
+    ylimit = 7;
+    xlimit = 7;
+  } else if (stepDiff == 9) {
+    ylimit = 7;
+  }
+  for (let y = 0; y < ylimit; y += 1) {
+    for (let x = 0 + diagStart; x < xlimit; x++) {
       let win = [];
-      for (let n = 0; n < stepDiff * 4; n += stepDiff) {
-        win.push(y * 10 + x + n);
+      for (let n = 0; n < 4; n += 1) {
+        win.push(y * 10 + x + n * stepDiff);
       }
       winCombs.push(win);
     }
@@ -26,8 +38,8 @@ const createCombs = function (stepDiff, diagStart = 0, diagEnd = 0) {
 
 createCombs(1);
 createCombs(10);
-createCombs(11, 0, 3);
-createCombs(9, 3, 3);
+createCombs(11);
+createCombs(9, 3);
 const showAvailable = function () {
   fields.forEach((field) => {
     field.classList.remove("available");
