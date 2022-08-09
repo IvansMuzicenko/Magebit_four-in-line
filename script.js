@@ -130,7 +130,7 @@ const botDecision = function () {
   for (let comb of bestCombs) {
     for (let avail of available_cells) {
       if (winCombs[comb.cell].includes(avail)) {
-        fields[avail].click();
+        return fields[avail].click();
       }
     }
   }
