@@ -134,44 +134,32 @@
   let winner = 0;
   let available_cells = [99, 98, 97, 96, 95, 94, 93, 92, 91, 90];
 
+  let availableCombs = [];
+  let bestCombs = [];
+
   const winCombs = [];
 
-  for (let i = 0; i < 100; i += 10) {
-    for (let l = 0; l < 7; l++) {
-      let win = [];
-      for (let n = 0; n < 4; n++) {
-        win.push(i + l + n);
+  const createCombs = function (
+    stepLimit,
+    stepDiff,
+    diagStart = 0,
+    diagEnd = 0
+  ) {
+    for (let y = 0; y <= 9 - diagEnd; y += 1) {
+      for (let x = 0 + diagStart; x < 7 + diagStart; x++) {
+        let win = [];
+        for (let n = 0; n < stepLimit; n += stepDiff) {
+          win.push(y * 10 + x + n);
+        }
+        winCombs.push(win);
       }
-      winCombs.push(win);
     }
-  }
-  for (let i = 0; i < 100; i += 10) {
-    for (let l = 0; l < 7; l++) {
-      let win = [];
-      for (let n = 0; n < 40; n += 10) {
-        win.push(i + l + n);
-      }
-      winCombs.push(win);
-    }
-  }
-  for (let i = 0; i < 100; i += 10) {
-    for (let l = 0; l < 7; l++) {
-      let win = [];
-      for (let n = 0; n < 44; n += 11) {
-        win.push(i + l + n);
-      }
-      winCombs.push(win);
-    }
-  }
-  for (let i = 0; i < 100; i += 10) {
-    for (let l = 0; l < 7; l++) {
-      let win = [];
-      for (let n = 0; n < 36; n += 9) {
-        win.push(i + l + n);
-      }
-      winCombs.push(win);
-    }
-  }
+  };
+
+  createCombs(4, 1);
+  createCombs(40, 10, 0);
+  createCombs(44, 11, 0, 3);
+  createCombs(36, 9, 3, 3);
 
   const reset = function (evt) {
     location.reload();
@@ -204,6 +192,7 @@
           }
           if (counter == 4) {
             winComb = comb;
+            console.log(winComb);
             winner = 1;
           }
         }
@@ -232,19 +221,52 @@
     }
   };
 
+  const botTurn = function () {
+    if (player == 2) {
+      const randField = Math.floor(Math.random() * available_cells.length);
+      fields[available_cells[randField]].click();
+    }
+  };
+
+  const botStep = function () {
+    if (player == 2) {
+      const randField = Math.floor(Math.random() * freeFields.length);
+      fields[freeFields[randField]].click();
+    }
+  };
+
+  const checkCombos = function (index) {
+    for (let comb of winCombs) {
+      comb.includes(index) ? availableCombs.push(comb) : "";
+    }
+  };
+  const checkBest = function () {
+    let table = {};
+    for (let comb in availableCombs) {
+      for (let avail of available_cells) {
+        if (comb.includes(avail)) {
+          //not done
+        }
+      }
+    }
+  };
+
   fields.forEach((el, index) => {
     el.onclick = function (evt) {
       if (!this.firstChild.innerText && available_cells.includes(index)) {
         if (player == 1) {
           player1fields.push(index);
+          checkCombos(index);
         } else if (player == 2) {
           player2fields.push(index);
         }
         this.firstChild.innerText = fill();
         available_cells.push(index - 10);
+        available_cells.splice(available_cells.indexOf(index), 1);
 
         winCheck();
         change();
+        botTurn();
       }
     };
   });
