@@ -7,7 +7,8 @@ let player2fields = [];
 let winner = 0;
 let available_cells = [99, 98, 97, 96, 95, 94, 93, 92, 91, 90];
 
-let bestCombs = [];
+let bestPlayerCombs = [];
+let bestBotCombs = [];
 
 const winCombs = [];
 
@@ -63,8 +64,8 @@ const reset = function (evt) {
   location.reload();
 };
 
-// (bot): creating array with possible player 1 future combinations and sorting them by completeness
-const checkCombos = function () {
+// creating array with possible player 1 future combinations and sorting them by completeness
+const checkPlayerCombos = function () {
   for (let combIndex in winCombs) {
     let counter = 0;
     for (let cell of player1fields) {
@@ -72,19 +73,43 @@ const checkCombos = function () {
         counter++;
       }
     }
-    bestCombs.push({ index: combIndex, rating: counter });
+    bestPlayerCombs.push({ index: combIndex, rating: counter });
   }
-  for (let comb of bestCombs) {
+  for (let comb of bestPlayerCombs) {
     for (let blocked of player2fields) {
       if (winCombs[comb.index].includes(blocked)) {
-        bestCombs = bestCombs.filter((el) => {
+        bestPlayerCombs = bestPlayerCombs.filter((el) => {
           return el.index != comb.index;
         });
       }
     }
   }
 
-  bestCombs.sort(function (a, b) {
+  bestPlayerCombs.sort(function (a, b) {
+    return b.rating - a.rating;
+  });
+};
+const checkBotCombos = function () {
+  for (let combIndex in winCombs) {
+    let counter = 0;
+    for (let cell of player2fields) {
+      if (winCombs[combIndex].includes(cell)) {
+        counter++;
+      }
+    }
+    bestBotCombs.push({ index: combIndex, rating: counter });
+  }
+  for (let comb of bestBotCombs) {
+    for (let blocked of player1fields) {
+      if (winCombs[comb.index].includes(blocked)) {
+        bestBotCombs = bestBotCombs.filter((el) => {
+          return el.index != comb.index;
+        });
+      }
+    }
+  }
+
+  bestBotCombs.sort(function (a, b) {
     return b.rating - a.rating;
   });
 };
@@ -151,7 +176,7 @@ const change = function () {
 //(bot): bots turn with decision for best cell to block player 1 combinations
 const botTurn = function () {
   if (player == 2) {
-    for (let comb of bestCombs) {
+    for (let comb of bestPlayerCombs) {
       for (let avail of available_cells) {
         if (winCombs[comb.index].includes(avail)) {
           return fields[avail].click();
@@ -160,7 +185,9 @@ const botTurn = function () {
     }
   }
 };
+
 // bot random step on available cells
+//
 // const botTurn = function () {
 //   if (player == 2) {
 //     const randField = Math.floor(Math.random() * available_cells.length);
@@ -174,7 +201,7 @@ fields.forEach((el, index) => {
     if (!this.firstChild.innerText && available_cells.includes(index)) {
       if (player == 1) {
         player1fields.push(index);
-        checkCombos();
+        checkPlayerCombos();
       } else if (player == 2) {
         player2fields.push(index);
       }
