@@ -89,6 +89,8 @@ const checkPlayerCombos = function () {
     return b.rating - a.rating;
   });
 };
+
+// creating array with possible player BOT future combinations and sorting them by completeness
 const checkBotCombos = function () {
   for (let combIndex in winCombs) {
     let counter = 0;
@@ -97,7 +99,9 @@ const checkBotCombos = function () {
         counter++;
       }
     }
-    bestBotCombs.push({ index: combIndex, rating: counter });
+    if (counter == 3) {
+      bestBotCombs.push({ index: combIndex, rating: counter });
+    }
   }
   for (let comb of bestBotCombs) {
     for (let blocked of player1fields) {
@@ -108,10 +112,6 @@ const checkBotCombos = function () {
       }
     }
   }
-
-  bestBotCombs.sort(function (a, b) {
-    return b.rating - a.rating;
-  });
 };
 
 // fill cell with corresponding symbol
@@ -176,6 +176,15 @@ const change = function () {
 //(bot): bots turn with decision for best cell to block player 1 combinations
 const botTurn = function () {
   if (player == 2) {
+    if (bestBotCombs.length > 0) {
+      for (let comb of bestBotCombs) {
+        for (let avail of available_cells) {
+          if (winCombs[comb.index].includes(avail)) {
+            return fields[avail].click();
+          }
+        }
+      }
+    }
     for (let comb of bestPlayerCombs) {
       for (let avail of available_cells) {
         if (winCombs[comb.index].includes(avail)) {
@@ -204,6 +213,7 @@ fields.forEach((el, index) => {
         checkPlayerCombos();
       } else if (player == 2) {
         player2fields.push(index);
+        checkBotCombos();
       }
       this.firstChild.innerText = fill();
       if (index >= 10) {
